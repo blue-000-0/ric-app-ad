@@ -37,7 +37,7 @@
             "rxMessages": ["TS_ANOMALY_ACK"],
             "txMessages": ["TS_ANOMALY_UPDATE"],
             "policies": []
-        }
+        },
         "influxDB": {
             "influxDBAddress": "http://r4-influxdb-influxdb2.ricplt:80",
             "username": "admin",
