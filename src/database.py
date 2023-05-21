@@ -50,16 +50,14 @@ class DATABASE(object):
     """
     
     def __init__(self, dbname='Timeseries', user='root', password='root', host="r4-influxdb.ricplt", port='8086', path='', ssl=False):
-        cfg = ConfigParser()
-        cfg.read('ad_config.ini')
         self.data = None
-        self.host = cfg.get('influxdb', "host")
-        self.port = cfg.get('influxdb', "port")
-        self.user = cfg.get('influxdb', "user")
-        self.password = cfg.get('influxdb', "password")
+        self.host = "r4-influxdb-influxdb2.ricplt"
+        self.port = '80'
+        self.user = 'admin'
+        self.password = '7jQCNdujbSKju7cL32IzOOwAx7rEjEGJ'
         self.path = path
         self.ssl = ssl
-        self.dbname = cfg.get('influxdb', "database")
+        self.dbname = 'kpimon'
         self.client = None
         self.config()
 
