@@ -20,6 +20,7 @@ from configparser import ConfigParser
 from mdclogpy import Logger
 from influxdb.exceptions import InfluxDBClientError, InfluxDBServerError
 from requests.exceptions import RequestException, ConnectionError
+import json
 
 logger = Logger(name=__name__)
 
@@ -47,16 +48,20 @@ class DATABASE(object):
     data: DataFrame
         fetched data from database
     """
-
+    
+    
+    with open('../xapp-descriptor/config.json') as config_file:
+        config_data = json.load(config_file)
+    
     def __init__(self, dbname='Timeseries', user='root', password='root', host="r4-influxdb.ricplt", port='8086', path='', ssl=False):
         self.data = None
-        self.host = host
-        self.port = port
-        self.user = user
-        self.password = password
+        self.host = config_data["influxDB"]["host"]
+        self.port = config_data["influxDB"]["port"]
+        self.user = config_data["influxDB"]["username"]
+        self.password = config_data["influxDB"]["password"]
         self.path = path
         self.ssl = ssl
-        self.dbname = dbname
+        self.dbname = config_data["influxDB"]["bucket"]
         self.client = None
         self.config()
 
