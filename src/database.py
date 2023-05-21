@@ -49,19 +49,17 @@ class DATABASE(object):
         fetched data from database
     """
     
-    
-    with open('../xapp-descriptor/config.json') as config_file:
-        config_data = json.load(config_file)
-    
     def __init__(self, dbname='Timeseries', user='root', password='root', host="r4-influxdb.ricplt", port='8086', path='', ssl=False):
+        cfg = ConfigParser()
+        cfg.read('ad_config.ini')
         self.data = None
-        self.host = config_data["influxDB"]["host"]
-        self.port = config_data["influxDB"]["port"]
-        self.user = config_data["influxDB"]["username"]
-        self.password = config_data["influxDB"]["password"]
+        self.host = cfg.get(section, "host")
+        self.port = cfg.get(section, "port")
+        self.user = cfg.get(section, "user")
+        self.password = cfg.get(section, "password")
         self.path = path
         self.ssl = ssl
-        self.dbname = config_data["influxDB"]["bucket"]
+        self.dbname = cfg.get(section, "database")
         self.client = None
         self.config()
 
