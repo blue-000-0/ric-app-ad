@@ -53,13 +53,13 @@ class DATABASE(object):
         cfg = ConfigParser()
         cfg.read('ad_config.ini')
         self.data = None
-        self.host = cfg.get(section, "host")
-        self.port = cfg.get(section, "port")
-        self.user = cfg.get(section, "user")
-        self.password = cfg.get(section, "password")
+        self.host = cfg.get('influxdb', "host")
+        self.port = cfg.get('influxdb', "port")
+        self.user = cfg.get('influxdb', "user")
+        self.password = cfg.get('influxdb', "password")
         self.path = path
         self.ssl = ssl
-        self.dbname = cfg.get(section, "database")
+        self.dbname = cfg.get('influxdb', "database")
         self.client = None
         self.config()
 
