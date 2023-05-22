@@ -57,7 +57,7 @@ class DATABASE(object):
         self.password = '7jQCNdujbSKju7cL32IzOOwAx7rEjEGJ'
         self.path = path
         self.ssl = ssl
-        self.dbname = 'kpimon'
+        self.dbname = dbname
         self.client = None
         self.config()
 
