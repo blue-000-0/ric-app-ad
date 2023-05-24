@@ -68,7 +68,7 @@ class DATABASE(object):
             self.client.close()
 
         try:
-            self.client = DataFrameClient(host=self.host, port=self.port, username=self.user, password=self.password, path=self.path, ssl=self.ssl, database=self.dbname, verify_ssl=self.ssl, token=self.token)
+            self.client = DataFrameClient(host=self.host, port=self.port, username=self.user, password=self.password, path=self.path, ssl=self.ssl, database=self.dbname, verify_ssl=self.ssl)
             version = self.client.request('ping', expected_response_code=204).headers['X-Influxdb-Version']
             logger.info("Conected to Influx Database, InfluxDB version : {}".format(version))
             return True
