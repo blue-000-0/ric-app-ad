@@ -60,13 +60,16 @@ class DATABASE(object):
         self.dbname = dbname
         self.client = None
         self.config()
+        self.token = 'Eki592tJqjTB47A3KHBpbFpfIoecPVjd'
 
     def connect(self):
         if self.client is not None:
             self.client.close()
 
         try:
-            self.client = DataFrameClient(self.host, port=self.port, username=self.user, password=self.password, path=self.path, ssl=self.ssl, database=self.dbname, verify_ssl=self.ssl)
+            self.client = DataFrameClient(host=self.host, port=self.port, username=self.user, password=self.password, path=self.path, ssl=self.ssl, database=self.dbname, verify_ssl=self.ssl)
+            self.client = InfluxDBClient(username=None, password=None,
+                            headers={"Authorization": token})
             version = self.client.request('ping', expected_response_code=204).headers['X-Influxdb-Version']
             logger.info("Conected to Influx Database, InfluxDB version : {}".format(version))
             return True
