@@ -33,7 +33,12 @@ COPY LICENSE.txt /tmp/
 # RUN mkdir -p /tmp/ad/
 RUN pip install /tmp
 RUN pip install ricxappframe
-RUN pip install --force-reinstall redis==3.0.1
+RUN pip install --force-reinstall redis==4.1.1
+RUN pip install protobuf==3.20.*
 ENV PYTHONUNBUFFERED 1
 COPY src/ /src
+ENV CONFIG_FILE opt/ric/config/config-file.json
+ENV SERVICE_RICXAPP_AD_HTTP_PORT http://noip
+ENV SERVICE_RICXAPP_AD_RMR_PORT "http://${AD_IP}:4560"
+ENV HOSTNAME ad
 CMD PYTHONPATH=/src:/usr/lib/python3.7/site-packages/:$PYTHONPATH run-src.py
