@@ -62,13 +62,16 @@ class DATABASE(object):
         self.client = None
         self.config()
         self.token = 'Eki592tJqjTB47A3KHBpbFpfIoecPVjd'
+        self.address = 'http://r4-influxdb-influxdb2.ricplt:80'
+        self.org = 'my-org'
+        self.bucket = 'kpimon'
 
     def connect(self):
         if self.client is not None:
             self.client.close()
 
         try:
-            self.client = DataFrameClient(host=self.host, port=self.port, username=self.user, password=self.password, path=self.path, ssl=self.ssl, database=self.dbname, verify_ssl=self.ssl)
+            self.client = InfluxDBClient(url=self.address, token=self.token, org=self.org)
             version = self.client.request('ping', expected_response_code=204).headers['X-Influxdb-Version']
             logger.info("Conected to Influx Database, InfluxDB version : {}".format(version))
             return True
