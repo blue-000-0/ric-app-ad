@@ -53,7 +53,7 @@ class DATABASE(object):
     def __init__(self, dbname='Timeseries', user='root', password='root', host="r4-influxdb.ricplt", port='8086', path='', ssl=False):
         self.data = None
         self.host = "r4-influxdb-influxdb2.ricplt"
-        self.port = '80'
+        self.port = '8086'
         self.user = 'admin'
         self.password = '7jQCNdujbSKju7cL32IzOOwAx7rEjEGJ'
         self.path = path
