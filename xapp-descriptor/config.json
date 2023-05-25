@@ -1,5 +1,5 @@
 {
-        "xapp_name": "ad",
+        "name": "ad",
         "version": "1.0.0",
         "containers": [
             {
