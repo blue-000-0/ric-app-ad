@@ -71,7 +71,7 @@ class DATABASE(object):
             self.client.close()
 
         try:
-            InfluxDBClient(host=self.host, port=self.port, username=self.user, password=self.password, database=self.dbname, ssl=self.ssl, verify_ssl=self.ssl, path=self.path, token=self.token, org=self.org)
+            InfluxDBClient(host=self.host, port=self.port, username=self.user, password=self.password, database=self.dbname, ssl=self.ssl, verify_ssl=self.ssl, path=self.path)
             version = self.client.request('ping', expected_response_code=204).headers['X-Influxdb-Version']
             logger.info("Conected to Influx Database, InfluxDB version : {}".format(version))
             return True
