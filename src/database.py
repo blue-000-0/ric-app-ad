@@ -72,7 +72,7 @@ class DATABASE(object):
             self.client.close()
 
         try:
-            self.client = influxdb_client.InfluxDBClient(url=self.address, token=self.token, org=self.org)
+            self.client = DataFrameClient(self.host, port=self.port, username=self.user, password=self.password, path=self.path, ssl=self.ssl, database=self.dbname, verify_ssl=self.ssl)
             return True
 
         except (RequestException, InfluxDBClientError, InfluxDBServerError, ConnectionError):
@@ -116,7 +116,7 @@ class DATABASE(object):
 
     def query(self, query):
         try:
-            result = self.client.query_api(query)
+            result = self.client.query(query)
         except (RequestException, InfluxDBClientError, InfluxDBServerError, ConnectionError) as e:
             logger.error('Failed to connect to influxdb: {}'.format(e))
             result = False
