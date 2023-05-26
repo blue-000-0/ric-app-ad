@@ -21,7 +21,8 @@ from mdclogpy import Logger
 from influxdb.exceptions import InfluxDBClientError, InfluxDBServerError
 from requests.exceptions import RequestException, ConnectionError
 import json
-from influxdb import InfluxDBClient
+import influxdb_client
+from influxdb_client.client.write_api import SYNCHRONOUS
 
 logger = Logger(name=__name__)
 
@@ -53,7 +54,7 @@ class DATABASE(object):
     def __init__(self, dbname='Timeseries', user='root', password='root', host="r4-influxdb.ricplt", port='8086', path='', ssl=False):
         self.data = None
         self.host = "r4-influxdb-influxdb2.ricplt"
-        self.port = '8086'
+        self.port = '80'
         self.user = 'admin'
         self.password = '7jQCNdujbSKju7cL32IzOOwAx7rEjEGJ'
         self.path = path
@@ -71,7 +72,7 @@ class DATABASE(object):
             self.client.close()
 
         try:
-            self.client = InfluxDBClient(host=self.host, port=self.port, username=self.user, password=self.password, database=self.dbname, ssl=self.ssl, verify_ssl=self.ssl, path=self.path)
+            self.client = influxdb_client.InfluxDBClient(url=self.address, token=self.token, org=self.org)
             version = self.client.request('ping', expected_response_code=204).headers['X-Influxdb-Version']
             logger.info("Conected to Influx Database, InfluxDB version : {}".format(version))
             return True
