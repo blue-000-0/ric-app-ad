@@ -72,7 +72,7 @@ class DATABASE(object):
             self.client.close()
 
         try:
-            self.client = DataFrameClient(self.host, port=self.port, username=self.user, password=self.password, path=self.path, ssl=self.ssl, database=self.dbname, verify_ssl=self.ssl)
+            self.client = influxdb_client.InfluxDBClient(url=self.url, token=self.token, org=self.org)
             return True
 
         except (RequestException, InfluxDBClientError, InfluxDBServerError, ConnectionError):
@@ -109,14 +109,14 @@ class DATABASE(object):
         meas: str (default='AD')
         """
         try:
-            self.client.write_points(df, meas)
+            self.client.write_api(df, meas)
         except (RequestException, InfluxDBClientError, InfluxDBServerError) as e:
             logger.error('Failed to send metrics to influxdb')
             print(e)
 
     def query(self, query):
         try:
-            result = self.client.query(query)
+            result = self.client.query_api(org=self.org, query)
         except (RequestException, InfluxDBClientError, InfluxDBServerError, ConnectionError) as e:
             logger.error('Failed to connect to influxdb: {}'.format(e))
             result = False
