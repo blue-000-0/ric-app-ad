@@ -73,8 +73,6 @@ class DATABASE(object):
 
         try:
             self.client = influxdb_client.InfluxDBClient(url=self.address, token=self.token, org=self.org)
-            version = self.client.request('ping', expected_response_code=204).headers['X-Influxdb-Version']
-            logger.info("Conected to Influx Database, InfluxDB version : {}".format(version))
             return True
 
         except (RequestException, InfluxDBClientError, InfluxDBServerError, ConnectionError):
