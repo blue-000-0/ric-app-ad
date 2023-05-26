@@ -21,7 +21,7 @@ from mdclogpy import Logger
 from influxdb.exceptions import InfluxDBClientError, InfluxDBServerError
 from requests.exceptions import RequestException, ConnectionError
 import json
-from influxdb_client import InfluxDBClient, Point
+import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 logger = Logger(name=__name__)
