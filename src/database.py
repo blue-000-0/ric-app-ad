@@ -90,7 +90,7 @@ class DATABASE(object):
         limit:int (defualt=False)
         """
         self.data = None
-        query = 'select * from ' + self.meas
+        query = 'select * from ' + self.bucket
         if not train and not valid and not limit:
             query += ' where time>now()-1600ms'
         elif train:
