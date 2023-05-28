@@ -119,7 +119,7 @@ class DATABASE(object):
     def query(self, query):
         try:
             query_api = self.client.query_api()
-            result = query_api.query(org=org, query=query)
+            result = query_api.query(org=self.org, query=query)
         except (RequestException, InfluxDBClientError, InfluxDBServerError, ConnectionError) as e:
             logger.error('Failed to connect to influxdb: {}'.format(e))
             result = False
