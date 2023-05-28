@@ -90,11 +90,11 @@ class DATABASE(object):
         limit:int (defualt=False)
         """
         self.data = None
-        query = 'select * from ' + self.bucket
+        query = 'from(bucket:"{}")'.format(self.bucket)
         if not train and not valid and not limit:
-            query += ' where time>now()-1600ms'
+            query += ' |> range(start: -1600ms)'
         elif train:
-            query += ' where time<now()-5m and time>now()-75m'
+            query += ' |> range(start: -75m, stop: -5m)'
         elif valid:
             query += ' where time>now()-5m'
         elif limit:
