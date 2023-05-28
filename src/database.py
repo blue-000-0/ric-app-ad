@@ -72,7 +72,7 @@ class DATABASE(object):
             self.client.close()
 
         try:
-            self.client = influxdb_client.InfluxDBClient(url=self.url, token=self.token, org=self.org)
+            self.client = influxdb_client.InfluxDBClient(url=self.address, token=self.token, org=self.org)
             version = self.client.version()
             logger.info("Conected to Influx Database, InfluxDB version : {}".format(version))
             return True
