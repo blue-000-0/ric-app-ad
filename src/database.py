@@ -96,9 +96,9 @@ class DATABASE(object):
         elif train:
             query += ' |> range(start: -75m, stop: -5m)'
         elif valid:
-            query += ' where time>now()-5m'
+            query += ' |> range(start: -5m)'
         elif limit:
-            query += ' where time>now()-1m limit '+str(limit)
+            query += ' |> range(start: -1m limit)'+str(limit)
         result = self.query(query)
         if result and len(result[self.meas]) != 0:
             self.data = result[self.meas]
