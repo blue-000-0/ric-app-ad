@@ -42,4 +42,3 @@ ENV SERVICE_RICXAPP_AD_HTTP_PORT http://noip
 ENV SERVICE_RICXAPP_AD_RMR_PORT "http://${AD_IP}:4560"
 ENV HOSTNAME ad
 CMD PYTHONPATH=/src:/usr/lib/python3.7/site-packages/:$PYTHONPATH run-src.py
-RUN pip install influxdb_client
