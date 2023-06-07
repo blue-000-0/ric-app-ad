@@ -98,8 +98,9 @@ class DATABASE(object):
             query += ' |> range(start: -24h, stop: now()) '
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
             query += ' |> aggregateWindow(every: 1h, fn: mean) '
-            query += ' |> sort(colums: ["_time"], desc:true ) |> limit(n: 1)'
+            query += ' |> sort(columns: ["_time"], desc:true ) |> limit(n: 1)'
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
+            logger.info(" Query Command:{}" .format(query)
         elif valid:
             query += ' |> range(start: -5m)'
         elif limit:
