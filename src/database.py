@@ -106,6 +106,8 @@ class DATABASE(object):
         elif limit:
             query += ' |> range(start: -1m limit)'+str(limit)
         result = self.query(query)
+        print(result)
+        print(type(result))
         if result and len(result[self.meas]) != 0:
             self.data = result[self.meas]
 
