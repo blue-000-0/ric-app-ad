@@ -97,6 +97,7 @@ class DATABASE(object):
         elif train:
             query += ' |> range(start: -24h, stop: now()) '
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
+            query += ' |> aggregateWindow(every: 1h, fn: mean) '
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
         elif valid:
             query += ' |> range(start: -5m)'
