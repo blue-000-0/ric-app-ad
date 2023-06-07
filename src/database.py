@@ -94,7 +94,7 @@ class DATABASE(object):
         if not train and not valid and not limit:
             query += ' |> range(start: -1600ms)'
         elif train:
-            query += ' |> range(start: -75m, stop: -5m)'
+            query += ' |> range(start: v.timeRangeStart, stop: v.timeRangeStop) '
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
             query += ' |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) '
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
