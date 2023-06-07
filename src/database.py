@@ -21,6 +21,7 @@ from mdclogpy import Logger
 from influxdb.exceptions import InfluxDBClientError, InfluxDBServerError
 from requests.exceptions import RequestException, ConnectionError
 import json
+import os
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 
@@ -133,6 +134,7 @@ class DATABASE(object):
         cfg.read('src/ad_config.ini')
         for section in cfg.sections():
             if section == 'influxdb':
+                self.influxDBAdres = cfg.get(section, "influxDBAdres")
                 self.host = cfg.get(section, "host")
                 self.port = cfg.get(section, "port")
                 self.user = cfg.get(section, "user")
@@ -141,6 +143,9 @@ class DATABASE(object):
                 self.ssl = cfg.get(section, "ssl")
                 self.dbname = cfg.get(section, "database")
                 self.meas = cfg.get(section, "measurement")
+                self.token = cfg.get(section, "token")
+                self.org = cfg.get (section, "org")
+                self.bucket = cfg.get(section, "bucket")
 
             if section == 'features':
                 self.thpt = cfg.get(section, "thpt")
