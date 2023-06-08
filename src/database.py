@@ -106,8 +106,21 @@ class DATABASE(object):
         elif limit:
             query += ' |> range(start: -1m limit)'+str(limit)
         result = self.query(query)
-        print(result)
-        print(type(result))
+        for table in table_list:
+            # 获取表格的列名
+            columns = table.columns
+            print("Columns:", columns)
+
+            # 获取表格的记录
+            for record in table.records:
+                # 处理每条记录
+                print("Record:", record.values)
+
+            # 或者可以将表格转换为 Pandas DataFrame 进行更灵活的处理
+            df = table.to_pandas()
+            print("DataFrame:", df)
+
+        
         if result and len(result[self.meas]) != 0:
             self.data = result[self.meas]
 
