@@ -106,6 +106,7 @@ class DATABASE(object):
         elif limit:
             query += ' |> range(start: -1m limit)'+str(limit)
         result = self.query(query)
+        table_list = result.tables
         for table in table_list:
             # 获取表格的列名
             columns = table.columns
