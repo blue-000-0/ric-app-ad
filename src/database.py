@@ -116,8 +116,6 @@ class DATABASE(object):
                     print("Record:", record.values)
         else:
             print("No tables found in the query result.")
-            table_list = result.tables
-            for table in table_list:
 
         
         if result and len(result[self.meas]) != 0:
