@@ -95,12 +95,11 @@ class DATABASE(object):
         if not train and not valid and not limit:
             query += ' |> range(start: -1600ms)'
         elif train:
-            query += ' |> range(start: -24h, stop: now()) '
+            query += ' |> range(start: -2d, stop: -1d) '
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
-            query += ' |> aggregateWindow(every: 1h, fn: mean) '
-            query += ' |> sort(columns: ["_time"], desc:true ) |> limit(n: 1)'
+            query += ' |> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
-            logger.info(" Query Command:{}" .format(query))
+            query += ' |> yield() '
         elif valid:
             query += ' |> range(start: -5m)'
         elif limit:
