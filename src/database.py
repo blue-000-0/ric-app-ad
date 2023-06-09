@@ -107,18 +107,7 @@ class DATABASE(object):
             query += ' |> range(start: -1m limit)'+str(limit)
     
         result = self.query(query)
-        if result and len(result[self.meas]) != 0:
-            table_list = result[0].tables  # 使用索引访问第一个表格，或者根据表格名访问 result['table_name'].tables
-            for table in table_list:
-                columns = table.columns
-                print("Columns:", columns)
-                for record in table.records:
-                    print("Record:", record.values)
-        else:
-            print("No tables found in the query result.")
-
-        
-        if result and len(result[self.meas]) != 0:
+        if len(result) != 0:
             self.data = result[self.meas]
 
     def write_anomaly(self, df, meas='AD'):
