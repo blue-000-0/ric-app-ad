@@ -105,21 +105,19 @@ class DATABASE(object):
             query += ' |> range(start: -5m)'
         elif limit:
             query += ' |> range(start: -1m limit)'+str(limit)
+    
         result = self.query(query)
-        table_list = result.tables
-        for table in table_list:
-            # 获取表格的列名
-            columns = table.columns
-            print("Columns:", columns)
-
-            # 获取表格的记录
-            for record in table.records:
-                # 处理每条记录
-                print("Record:", record.values)
-
-            # 或者可以将表格转换为 Pandas DataFrame 进行更灵活的处理
-            df = table.to_pandas()
-            print("DataFrame:", df)
+        if result:
+            table_list = result[0].tables  # 使用索引访问第一个表格，或者根据表格名访问 result['table_name'].tables
+            for table in table_list:
+                columns = table.columns
+                print("Columns:", columns)
+                for record in table.records:
+                    print("Record:", record.values)
+        else:
+            print("No tables found in the query result.")
+            table_list = result.tables
+            for table in table_list:
 
         
         if result and len(result[self.meas]) != 0:
