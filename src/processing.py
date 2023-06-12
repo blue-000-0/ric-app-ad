@@ -56,7 +56,7 @@ class PREPROCESS(object):
         print(self.data.dtypes)
         numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
         self.data = self.data.select_dtypes(include=numerics)
-        print(self.data.columns)
+        
 
     def drop_na(self):
         """ drop observations having nan values """
@@ -93,9 +93,16 @@ class PREPROCESS(object):
                 temp.append(col)
         self.data = self.data.drop(temp, axis=1)
         self.numerical_data()
+        print(self.data.columns)
         self.drop_na()
+        print(self.data.columns)
         self.variation()
+        print(self.data.columns)
         self.correlation()
+        print(self.data.columns)
         self.fit_transform()
+        print(self.data.columns)
         self.transform()
+        print(self.data.columns)
         self.save_cols()
+        print(self.data.columns)
