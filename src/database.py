@@ -110,6 +110,7 @@ class DATABASE(object):
     
         result = self.query(query)
         self.data = result
+        print(result.to_string())
             
     def write_anomaly(self, df, meas='AD'):
         """Write data method for a given measurement
@@ -127,7 +128,7 @@ class DATABASE(object):
     def query(self, query):
         try:
             query_api = self.client.query_api()
-            result = query_api.query(org=self.org, query=query)
+            result = query_api.query_data_frame(org=self.org, query=query)
         except (RequestException, InfluxDBClientError, InfluxDBServerError, ConnectionError) as e:
             logger.error('Failed to connect to influxdb: {}'.format(e))
             result = False
