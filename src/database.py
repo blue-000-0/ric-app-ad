@@ -116,10 +116,7 @@ class DATABASE(object):
             data_frames.append(df)
         
         self.data = pd.concat(data_frames)
-           
-  
-    
-    
+        logger.info("DataFrame的前5行：\n{}".format(df.head(5)))
             
     def write_anomaly(self, df, meas='AD'):
         """Write data method for a given measurement
