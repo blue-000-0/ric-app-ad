@@ -95,7 +95,7 @@ class PREPROCESS(object):
         self.numerical_data()
         self.drop_na()
         self.variation()
-        self.correlation()
+        ## self.correlation()
         self.fit_transform()
         self.transform()
         self.save_cols()
