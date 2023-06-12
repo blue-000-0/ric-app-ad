@@ -110,9 +110,17 @@ class DATABASE(object):
             query += ' |> range(start: -1m limit)'+str(limit)
     
         result = self.query(query)
-        if len(result) != 0:
-            self.data = result
-
+        data_frames = []
+        for table in result:
+            df = pd.DataFrame(table.records)
+            data_frames.append(df)
+        
+        self.data = pd.concat(data_frames)
+           
+  
+    
+    
+            
     def write_anomaly(self, df, meas='AD'):
         """Write data method for a given measurement
 
