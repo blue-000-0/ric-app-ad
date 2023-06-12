@@ -49,6 +49,7 @@ class PREPROCESS(object):
             self.data = self.data.loc[:, self.data.apply(pd.Series.nunique) != 1]
 
     def convert_gb_to_mb(self):
+        print(self.data.columns)
         self.data['DRB_UEThpDl']= self.data['DRB_UEThpDl'].apply(lambda x: x*1024)
      
     def numerical_data(self):
