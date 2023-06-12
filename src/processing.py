@@ -50,7 +50,7 @@ class PREPROCESS(object):
 
     def convert_gb_to_mb(self):
         print(self.data.columns)
-        self.data.iloc[:]['DRB.UEThpDl'] = self.data['DRB.UEThpDl'].apply(lambda x: x*1024)
+        self.data.iloc[:]['DRB_UEThpDl'] = self.data['DRB_UEThpDl'].apply(lambda x: x*1024)
      
     def numerical_data(self):
         """  Filters only numeric data types """
