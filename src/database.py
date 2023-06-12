@@ -117,7 +117,7 @@ class DATABASE(object):
        
         self.data = pd.concat(data_frames)
         self.data = pd.DataFrame(self.data)
-        self.data.drop(0, inplace=True)
+        self.data = self.data.dropna()
         logger.info(self.data.head(1).to_string())
             
     def write_anomaly(self, df, meas='AD'):
