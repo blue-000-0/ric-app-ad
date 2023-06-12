@@ -53,8 +53,10 @@ class PREPROCESS(object):
      
     def numerical_data(self):
         """  Filters only numeric data types """
+        print(self.data.dtypes)
         numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
         self.data = self.data.select_dtypes(include=numerics)
+        print(self.data.columns)
 
     def drop_na(self):
         """ drop observations having nan values """
