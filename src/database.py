@@ -112,7 +112,7 @@ class DATABASE(object):
         if len(result) == 0:
                 raise NoDataError
         else:
-            self.data = result[meas]
+            self.data = result
         logger.info(self.data.head(1).to_string())
             
     def write_anomaly(self, df, meas='AD'):
