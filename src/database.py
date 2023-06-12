@@ -109,14 +109,10 @@ class DATABASE(object):
             query += ' |> range(start: -1m limit)'+str(limit)
     
         result = self.query(query)
-        data_frames = []
-        for table in result:
-            df = pd.DataFrame(table.records)
-            data_frames.append(df)
-       
-        self.data = pd.concat(data_frames)
-        self.data = pd.DataFrame(self.data)
-        self.data = self.data.dropna()
+        if len(result) == 0:
+                raise NoDataError
+        else:
+            self.data = result[meas]
         logger.info(self.data.head(1).to_string())
             
     def write_anomaly(self, df, meas='AD'):
