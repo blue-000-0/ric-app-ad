@@ -61,14 +61,7 @@ class PREPROCESS(object):
     def drop_na(self):
         """ drop observations having nan values """
         self.data = self.data.dropna(axis=0)
-'''
-    def correlation(self):
-        """  check and drop high correlation parameters  """
-        corr = self.data.corr().abs()
-        corr = pd.DataFrame(np.tril(corr, k=-1), columns=self.data.columns)
-        drop = [column for column in corr.columns if any(corr[column] > 0.98)]
-        self.data = self.data.drop(drop, axis=1)
-'''
+
     # check skewness of all parameters and use log transform if half of parameters are enough skewd
     # otherwise use standardization
     def fit_transform(self):
@@ -95,7 +88,6 @@ class PREPROCESS(object):
         self.numerical_data()
         self.drop_na()
         self.variation()
-        ## self.correlation()
         self.fit_transform()
         self.transform()
         self.save_cols()
