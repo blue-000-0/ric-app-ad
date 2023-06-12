@@ -111,6 +111,7 @@ class ModelTraining(object):
 
         self.actual = (self.test_data[self.db.anomaly] > 0).astype(int)
         num = joblib.load('src/num_params')
+        print (num)
         print(self.test_data.columns[num])
         ps = PREPROCESS(self.test_data[num])
         ps.transform()
