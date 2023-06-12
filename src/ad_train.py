@@ -104,6 +104,7 @@ class ModelTraining(object):
         """
         Main function to perform training on input data
         """
+        print(self.train_data.columns)
         logger.debug("Training Starts")
         ps = PREPROCESS(self.train_data)
         ps.process()
