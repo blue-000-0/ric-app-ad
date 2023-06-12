@@ -113,7 +113,9 @@ class DATABASE(object):
                 raise NoDataError
         else:
             self.data = result
-        logger.info(self.data.head(1).to_string())
+        for table in result:
+            table_name = table.name
+            print(f"Table: {table_name}")
             
     def write_anomaly(self, df, meas='AD'):
         """Write data method for a given measurement
