@@ -110,7 +110,8 @@ class DATABASE(object):
     
         result = self.query(query)
         self.data = result
-        print(self.data.head(2).to_string())
+        print(self.data.head(1).to_string())
+        print(self.data.columns)
             
     def write_anomaly(self, df, meas='AD'):
         """Write data method for a given measurement
