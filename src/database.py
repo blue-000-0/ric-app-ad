@@ -115,10 +115,8 @@ class DATABASE(object):
             df = pd.DataFrame(table.records)
             data_frames.append(df)
        
-        
-        data = pd.concat(data_frames)
-        self.data = pd.DataFrame([data])
-        logger.info("\n{}".format(data_frame.to_string(index=False)))
+        self.data = pd.concat(data_frames)
+        self.data = pd.DataFrame(self.data)
             
     def write_anomaly(self, df, meas='AD'):
         """Write data method for a given measurement
