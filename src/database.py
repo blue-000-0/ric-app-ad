@@ -24,6 +24,7 @@ import json
 import os
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
+from influxdb_client import InfluxDBClient, Point, WriteOptions
 
 logger = Logger(name=__name__)
 
@@ -125,7 +126,7 @@ class DATABASE(object):
         meas: str (default='AD')
         """
         try:
-            write_api = client.write_api(write_options=SYNCHRONOUS)
+            write_api = self.client.write_api(write_options=SYNCHRONOUS)
             _write_client.write(bucket=self.bucket, record=df, data_frame_measurement_name= meas)
         except (RequestException, InfluxDBClientError, InfluxDBServerError) as e:
             logger.error('Failed to send metrics to influxdb')
