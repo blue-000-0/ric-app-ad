@@ -102,13 +102,13 @@ class DATABASE(object):
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
             query += ' |> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
-            query += ' |> limit(n: 2000)'
+            query += ' |> limit(n: 15)'
         elif valid:
             query += ' |> range(start: -2d, stop: -1d) '
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
             query += ' |> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
-            query += ' |> limit(n: 1000)'
+            query += ' |> limit(n: 10)'
         elif limit:
             query += ' |> range(start: -1m limit)'+str(limit)
     
