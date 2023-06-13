@@ -125,7 +125,8 @@ class DATABASE(object):
         meas: str (default='AD')
         """
         try:
-            self.client.write_api(df, meas)
+            write_api = client.write_api(write_options=SYNCHRONOUS)
+            _write_client.write(bucket=self.bucket, record=df, data_frame_measurement_name= meas)
         except (RequestException, InfluxDBClientError, InfluxDBServerError) as e:
             logger.error('Failed to send metrics to influxdb')
             print(e)
