@@ -104,7 +104,7 @@ class CAUSE(object):
                 query += '|> filter(fn: (r) => r["_measurement"] == "UeMetrics")'
                 query += '|> filter(fn: (r) => r["{}"] == "{}")'.format(db.ue, sample.iloc[i][db.ue])
                 query += '|> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
-                
+                query += '|> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value") '
                 normal = db.query(query)
                 if len(normal) != 0:
                     normal = normal[db.meas][[db.thpt, db.rsrp, db.rsrq]]
