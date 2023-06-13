@@ -93,17 +93,17 @@ class DATABASE(object):
         self.data = None
         query = 'from(bucket:"{}")'.format(self.bucket)
         if not train and not valid and not limit:
-            query += ' |> range(start: -30m) '
+            query += ' |> range(start: -75m) '
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
             query += ' |> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
         elif train:
-            query += ' |> range(start: -60m, stop: -55m) '
+            query += ' |> range(start: -90m, stop: -80m) '
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
             query += ' |> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
         elif valid:
-            query += ' |> range(start: -45m, stop: -40m) '
+            query += ' |> range(start: -80m, stop: -75m) '
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
             query += ' |> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
