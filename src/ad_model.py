@@ -106,7 +106,7 @@ class CAUSE(object):
                 query += '|> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
                 
                 normal = db.query(query)
-                if normal:
+                if len(normal) != 0:
                     normal = normal[db.meas][[db.thpt, db.rsrp, db.rsrq]]
                     deg = self.find(sample.loc[i, :], normal.max(), db)
                     if deg:
