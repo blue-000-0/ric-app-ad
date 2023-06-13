@@ -99,7 +99,12 @@ class CAUSE(object):
         sample.index = range(len(sample))
         for i in range(len(sample)):
             if sample.iloc[i]['Anomaly'] == 1:
-                query = 'select * from {} where {} = \'{}\' and time<now() and time>now()-48h'.format(db.meas, db.ue, sample.iloc[i][db.ue])
+                query = 'from(bucket: "kpimon")'
+                query += '|> range(start: -20s)' 
+                query += '|> filter(fn: (r) => r["_measurement"] == "UeMetrics")'
+                query += '|> filter(fn: (r) => r["{}"] == "{}")'.format(db.ue, sample.iloc[i][db.ue])
+                query += '|> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
+                
                 normal = db.query(query)
                 if normal:
                     normal = normal[db.meas][[db.thpt, db.rsrp, db.rsrq]]
