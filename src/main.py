@@ -104,7 +104,7 @@ def predict_anomaly(self, df):
             # rmr send 30003(TS_ANOMALY_UPDATE), should trigger registered callback
             result = json.loads(df_a.loc[:, cols].to_json(orient='records'))
             val = json.dumps(result).encode()
-    df.loc[:, 'RRU.PrbUsedDl'] = df['RRU.PrbUsedDl'].astype('float')
+    df.loc[:, 'RRU_PrbUsedDl'] = df['RRU_PrbUsedDl'].astype('float')
     df.index = pd.date_range(start=df.index[0], periods=len(df), freq='1ms')
     db.write_anomaly(df)
     return val
