@@ -76,6 +76,7 @@ def predict(self):
         logger.warning("No data in last 1 second")
         time.sleep(1)
     if (val is not None) and (len(val) > 2):
+        print("val:", val)
         msg_to_ts(self, val)
 
 
