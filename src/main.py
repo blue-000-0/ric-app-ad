@@ -112,10 +112,10 @@ def predict_anomaly(self, df):
 
 def msg_to_ts(self, val):
     # send message from ad to ts
-    logger.debug("Sending Anomalous UE to TS")
+    logger.debug("Sending Anomalous UE to TS, Anomaly UE ID: {}".format(db.data.iloc[1][Viavi_UE_id]))
     success = self.rmr_send(val, 30003)
     if success:
-        logger.info(" Message to TS: message sent Successfully, Anomaly UE ID: {}".format(db.data.iloc[1][Viavi_UE_id]))
+        logger.info(" Message to TS: message sent Successfully")
     # rmr receive to get the acknowledgement message from the traffic steering.
     for (summary, sbuf) in self.rmr_get_messages():
         logger.info("Received acknowldgement from TS (TS_ANOMALY_ACK): {}".format(summary))
