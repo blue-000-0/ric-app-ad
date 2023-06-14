@@ -76,7 +76,6 @@ def predict(self):
         logger.warning("No data in last 1 second")
         time.sleep(1)
     if (val is not None) and (len(val) > 2):
-        print("val:", val)
         msg_to_ts(self, val)
 
 
@@ -113,7 +112,7 @@ def predict_anomaly(self, df):
 
 def msg_to_ts(self, val):
     # send message from ad to ts
-    logger.debug("Sending Anomalous UE to TS, Anomaly UE ID: {}".format(db.data.iloc[1][Viavi_UE_id]))
+    logger.debug("Sending Anomalous UE to TS")
     success = self.rmr_send(val, 30003)
     if success:
         logger.info(" Message to TS: message sent Successfully")
