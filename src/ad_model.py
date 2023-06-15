@@ -107,7 +107,7 @@ class CAUSE(object):
                 query += '|> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value") '
                 normal = db.query(query)
                 if len(normal) != 0:
-                    normal = normal[db.meas][[db.thpt, db.rsrp, db.rsrq]]
+                    normal = normal[[db.thpt, db.rsrp, db.rsrq]]
                     deg = self.find(sample.loc[i, :], normal.max(), db)
                     if deg:
                         sample.loc[i, 'Degradation'] = deg
