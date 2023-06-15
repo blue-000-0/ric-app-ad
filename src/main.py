@@ -102,11 +102,11 @@ def predict_anomaly(self, df):
             df_a['time'] = df_a.index
             cols = [db.ue, 'time', 'Degradation']
             # rmr send 30003(TS_ANOMALY_UPDATE), should trigger registered callback
-            result = json.loads(df_a.loc[:, cols].to_json(orient='records'))
+            result_1 = json.loads(df_a.loc[:, cols].to_json(orient='records'))
             new_cols = {'ue-id': db.ue, 'measTimeStampRf': 'time', 'Degradation': 'Degradation'}
-            for record in result:
+            for record in result_1:
                 record.update((new_cols[key], value) for key, value in record.items() if key in new_cols)
-
+                result.append(record)
             val = json.dumps(result).encode()
     df.loc[:, 'RRU_PrbUsedDl'] = df['RRU_PrbUsedDl'].astype('float')
     df.index = pd.date_range(start=df.index[0], periods=len(df), freq='1ms')
