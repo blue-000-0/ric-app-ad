@@ -100,7 +100,7 @@ def predict_anomaly(self, df):
         df_a = df.loc[df['Anomaly'] == 1].copy()
         if len(df_a) > 0:
             df_a['time'] = df_a.index
-            cols = ['ue-id', 'measTimeStampRf', 'Degradation']
+            cols = [db.ue, 'measTimeStampRf', 'Degradation']
             # rmr send 30003(TS_ANOMALY_UPDATE), should trigger registered callback
             result = json.loads(df_a.loc[:, cols].to_json(orient='records'))
             val = json.dumps(result).encode()
