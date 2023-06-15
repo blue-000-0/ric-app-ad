@@ -104,6 +104,7 @@ def predict_anomaly(self, df):
             # rmr send 30003(TS_ANOMALY_UPDATE), should trigger registered callback
             result_1 = json.loads(df_a.loc[:, cols].to_json(orient='records'))
             new_cols = {'ue-id': db.ue, 'measTimeStampRf': 'time', 'Degradation': 'Degradation'}
+            result = []
             for record in result_1:
                 record.update((new_cols[key], value) for key, value in record.items() if key in new_cols)
                 result.append(record)
