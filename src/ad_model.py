@@ -109,7 +109,9 @@ class CAUSE(object):
                 if len(normal) != 0:
                     normal = normal[[db.thpt, db.rsrp, db.rsrq]]
                     deg = self.find(sample.loc[i, :], normal.max(), db)
+                    print('sample')
                     print(sample[db.thpt], sample[db.rsrp], sample[db.rsrq])
+                    print('normal')
                     print(normal[db.thpt], normal[db.rsrp], normal[db.rsrq])
                     if deg:
                         print('anomaly')
