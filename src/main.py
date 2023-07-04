@@ -101,9 +101,11 @@ def predict_anomaly(self, df):
     val = None
     print(df.Anomaly.unique())
     if 1 in df.Anomaly.unique():
+        print('in')
         df.loc[:, ['Anomaly', 'Degradation']] = cp.cause(df, db)
         df_a = df.loc[df['Anomaly'] == 1].copy()
         if len(df_a) > 0:
+            print('1')
             df_a['time'] = df_a.index
             cols = [db.ue, '_time', 'Degradation']
             # rmr send 30003(TS_ANOMALY_UPDATE), should trigger registered callback
