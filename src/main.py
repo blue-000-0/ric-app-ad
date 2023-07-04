@@ -99,7 +99,6 @@ def predict_anomaly(self, df):
     df['Anomaly'] = md.predict(df)
     df.loc[:, 'Degradation'] = ''
     val = None
-    print(df.Anomaly.unique())
     if 1 in df.Anomaly.unique():
         print('in')
         df.loc[:, ['Anomaly', 'Degradation']] = cp.cause(df, db)
