@@ -65,9 +65,6 @@ def predict(self):
       Get the acknowledgement of sent message from the traffic steering.
     """
     db.read_data()
-    random_index = random.randint(0, len(db.data)-1)
-    random_row = db.data.iloc[random_index]
-    db.data = pd.DataFrame([random_row], columns=db.data.columns)
     val = None
     if db.data is not None:
         if set(md.num).issubset(db.data.columns):
