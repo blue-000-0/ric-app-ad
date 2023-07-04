@@ -67,7 +67,8 @@ def predict(self):
     db.read_data()
     val = None
     random_index = random.randint(0, len(db.data)-1)
-    db.data = db.data.iloc[random_index]
+    random_row = db.data.iloc[random_index]
+    db.data = pd.DataFrame([random_row], columns=db.data.columns)
     if db.data is not None:
         if set(md.num).issubset(db.data.columns):
             db.data = db.data.dropna(axis=0)
