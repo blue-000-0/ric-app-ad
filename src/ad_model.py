@@ -99,7 +99,6 @@ class CAUSE(object):
         sample.index = range(len(sample))
         for i in range(len(sample)):
             if sample.iloc[i]['Anomaly'] == 1:
-                print('1')
                 query = 'from(bucket: "kpimon")'
                 query += '|> range(start: -20s)' 
                 query += '|> filter(fn: (r) => r["_measurement"] == "UeMetrics")'
@@ -108,9 +107,10 @@ class CAUSE(object):
                 query += '|> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value") '
                 normal = db.query(query)
                 if len(normal) != 0:
-                    print('2')
                     normal = normal[[db.thpt, db.rsrp, db.rsrq]]
                     deg = self.find(sample.loc[i, :], normal.max(), db)
+                    print(sample[db.thpt], sample[db.rsrp], sample[db.rsrq])
+                    print(normal[db.thpt], normal[db.rsrp], normal[db.rsrq])
                     if deg:
                         print('anomaly')
                         sample.loc[i, 'Degradation'] = deg
