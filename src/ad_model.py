@@ -107,16 +107,12 @@ class CAUSE(object):
                 query += '|> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value") '
                 normal = db.query(query)
                 if len(normal) != 0:
-                    normal = normal[[db.thpt, db.rsrp, db.rsrq]]
+                    normal = normal[[db.thpt, db.rsrp, db.rsrq, db.rssinr, db.prb_usage]]
                     deg = self.find(sample.loc[i, :], normal.max(), db)
-                    print('sample')
-                    print(sample[db.thpt], sample[db.rsrp], sample[db.rsrq])
-                    print('normal')
-                    print(normal[db.thpt], normal[db.rsrp], normal[db.rsrq])
                     if deg:
                         print('anomaly')
                         sample.loc[i, 'Degradation'] = deg
-                        if 'Throughput' in deg and ('RSRP' in deg or 'RSRQ' in deg):
+                        if 'Throughput' in deg and ('RSRP' in deg or 'RSRQ' in deg) and 'RSSINR' in deg and 'prb_usage' in deg:
                             sample.loc[i, 'Anomaly'] = 2
                     else:
                         print('error')
@@ -132,6 +128,10 @@ class CAUSE(object):
             deg.append('RSRP')
         if row[db.rsrq] < l[db.rsrq]-10:
             deg.append('RSRQ')
+        if row[db.rssinr] < l[db.rssinr]-25:
+            deg.append('RSSINR')
+        if srow[db.prb_usage] < l[db.prb_usage]*0.5:
+            deg.append('prb_usage')
         if len(deg) == 0:
             deg = False
         else:
