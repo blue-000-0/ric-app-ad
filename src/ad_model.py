@@ -100,7 +100,7 @@ class CAUSE(object):
         for i in range(len(sample)):
             if sample.iloc[i]['Anomaly'] == 1:
                 query = 'from(bucket: "kpimon")'
-                query += '|> range(start: -20s)' 
+                query += '|> range(start: -2m)' 
                 query += '|> filter(fn: (r) => r["_measurement"] == "UeMetrics")'
                 query += '|> filter(fn: (r) => r["{}"] == "{}")'.format(db.ue, sample.iloc[i][db.ue])
                 query += '|> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
