@@ -25,6 +25,7 @@ from mdclogpy import Logger
 from ad_model import modelling, CAUSE
 from ad_train import ModelTraining
 from database import DATABASE, DUMMY
+import random
 
 db = None
 cp = None
@@ -65,6 +66,8 @@ def predict(self):
     """
     db.read_data()
     val = None
+    random_index = random.randint(0, len(db.data)-1)
+    db.data = db.data.iloc[random_index]
     if db.data is not None:
         if set(md.num).issubset(db.data.columns):
             db.data = db.data.dropna(axis=0)
