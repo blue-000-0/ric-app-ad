@@ -25,7 +25,6 @@ from mdclogpy import Logger
 from ad_model import modelling, CAUSE
 from ad_train import ModelTraining
 from database import DATABASE, DUMMY
-import random
 
 db = None
 cp = None
@@ -66,9 +65,6 @@ def predict(self):
     """
     db.read_data()
     val = None
-    random_index = random.randint(0, len(db.data)-1)
-    random_row = db.data.iloc[random_index]
-    db.data = pd.DataFrame([random_row], columns=db.data.columns)
     if db.data is not None:
         if set(md.num).issubset(db.data.columns):
             db.data = db.data.dropna(axis=0)
@@ -99,6 +95,7 @@ def predict_anomaly(self, df):
     df['Anomaly'] = md.predict(df)
     df.loc[:, 'Degradation'] = ''
     val = None
+    print(df.Anomaly.unique())
     if 1 in df.Anomaly.unique():
         df.loc[:, ['Anomaly', 'Degradation']] = cp.cause(df, db)
         df_a = df.loc[df['Anomaly'] == 1].copy()
