@@ -112,7 +112,7 @@ class CAUSE(object):
                     normal = normal[[db.thpt, db.rsrp, db.rsrq]]
                     deg = self.find(sample.loc[i, :], normal.max(), db)
                     if deg:
-                        print('anomaly)
+                        print('anomaly')
                         sample.loc[i, 'Degradation'] = deg
                         if 'Throughput' in deg and ('RSRP' in deg or 'RSRQ' in deg):
                             sample.loc[i, 'Anomaly'] = 2
