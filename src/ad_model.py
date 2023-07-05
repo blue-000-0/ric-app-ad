@@ -113,8 +113,10 @@ class CAUSE(object):
                         sample.loc[i, 'Degradation'] = deg
                         if 'Throughput' in deg and ('RSRP' in deg or 'RSRQ' in deg) and 'RSSINR' in deg:
                             sample.loc[i, 'Anomaly'] = 2
+                            print('1')
                     else:
                         sample.loc[i, 'Anomaly'] = 0
+                        print('2')
         return sample[['Anomaly', 'Degradation']].values.tolist()
 
     def find(self, row, l, db):
