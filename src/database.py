@@ -100,7 +100,7 @@ class DATABASE(object):
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
             query += ' |> limit(n: 1)'
         elif train:
-            query += ' |> range(start: -5m, stop: -75m) '
+            query += ' |> range(start: -75m, stop: -5m) '
             query += ' |> filter(fn: (r) => r["_measurement"] == "UeMetrics") '
             query += ' |> filter(fn: (r) => r["_field"] == "DRB_UEThpDl" or r["_field"] == "Viavi_UE_Rsrp" or r["_field"] == "Viavi_UE_Rsrq" or r["_field"] == "Viavi_UE_RsSinr" or r["_field"] == "RRU_PrbUsedDl" or r["_field"] == "Viavi_UE_anomalies") '
             query += ' |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value") '
